@@ -1,20 +1,20 @@
 #!/bin/sh
 
-UNAME= $( command -v uname);
+UNAME=$( command -v uname);
 
 USER="linux";
 FROM_PRE_COMMIT_PATH="./src/linux-pre-commit";
 TO_PRE_COMMIT_PATH="../.git/hooks/pre-commit";
-echo "$UNAME"
+echo $( "${UNAME}" | tr '[:upper:]' '[:lower:]');
 case $( "${UNAME}" | tr '[:upper:]' '[:lower:]') in
   msys*|cygwin*|mingw*)
     # or possible 'bash on windows'
-    USER="windows";
+    USER="windows"
 	FROM_PRE_COMMIT_PATH=".\\src\\windows-pre-commit";
 	TO_PRE_COMMIT_PATH="..\\.git\\hooks\\pre-commit";
     ;;
   nt|win*)
-    USER="windows";
+    USER="windows"
 	FROM_PRE_COMMIT_PATH=".\\src\\windows-pre-commit";
 	TO_PRE_COMMIT_PATH="..\\.git\\hooks\\pre-commit";
     ;;
