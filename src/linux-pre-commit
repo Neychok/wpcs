@@ -14,6 +14,15 @@ then
 fi
 SFILES=${SFILES:-$STAGED_FILES_CMD}
 
+eval 'git fetch --all';
+BEHIND_COUNT=$(git rev-list --count HEAD..@{u});
+echo "$BEHIND_COUNT";
+if [ $BEHIND_COUNT -gt 0 ];
+then
+	echo "Your branch is $BEHIND_COUNT commits behind master!";
+	exit 1
+fi
+
 echo "Checking PHP Lint..."
 for FILE in $SFILES
 do
@@ -39,5 +48,8 @@ then
         exit 1
     fi
 fi
+
+exit 1
+
 
 exit $?
